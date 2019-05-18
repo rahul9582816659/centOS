@@ -70,4 +70,19 @@ MYSQL:
 10. sudo yum install mysql-workbench-community
 11. sudo yum update mysql-server : if need to upgrade
 
+Kernel Update:
+--------------
+https://www.tecmint.com/install-upgrade-kernel-version-in-centos-7/
+https://www.howtoforge.com/tutorial/how-to-upgrade-kernel-in-centos-7-server/
 
+
+uname -sr
+rpm --import https://www.elrepo.org/RPM-GPG-KEY-elrepo.org
+rpm -Uvh http://www.elrepo.org/elrepo-release-7.0-3.el7.elrepo.noarch.rpm
+yum --disablerepo="*" --enablerepo="elrepo-kernel" list available
+yum --enablerepo=elrepo-kernel install kernel-ml
+sudo vi /etc/default/grub
+GRUB_DEFAULT=0 : change this
+sudo grub2-mkconfig -o /boot/grub2/grub.cfg
+sudo grub2-mkconfig -o /boot/grub/grub.cfg
+restart os
