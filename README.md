@@ -21,6 +21,15 @@ NodeJS:
 Java:
 -----
 1. Bydefault installed
+2. install java 8 latest from software dir : rpm will be there run that : sudo yum install jdk... 
+3. Intellija : /usr/java/1.8... : select this
+
+
+Maven:
+------
+1. sudo yum install maven
+2. mvn -version
+3. The Local Repository : Linux: /home/<User_Name>/.m2 : /home/rahul/.m2
 
 VLC:
 ----
