@@ -100,6 +100,9 @@ sudo vi /etc/default/grub
 GRUB_DEFAULT=0 : change this
 sudo grub2-mkconfig -o /boot/grub2/grub.cfg
 sudo grub2-mkconfig -o /boot/grub/grub.cfg
+
+Change the file: /etc/grub2-efi.cfg ( /boot/efi/EFI/centos/grub.cfg) 
+Change line "set default=$$$$" to ' set default = "0" ' in the else block. 
 restart os
 
 
@@ -127,3 +130,46 @@ sudo mv ./kubectl /usr/local/bin/kubectl
 kubectl version
 
 kubectl cluster-info
+
+Openshift:
+----------
+before this install Docker & Kubernetes
+
+wget https://github.com/openshift/origin/releases/download/v1.5.1/openshift-origin-client-tools-v1.5.1-7b451fc-linux-64bit.tar.gz 
+or 
+download latest from https://github.com/openshift/origin/releases scroll to end 
+
+install latest one from above
+tar –xvf openshift-origin-client-tools-v1.5.1-7b451fc-linux-64bit.tar.gz
+mv openshift-origin-client-tools-v1.5.1-7b451fc-linux-64bit oc-tool
+mv oc-tool /usr/local/bin
+export PATH=/usr/local/bin/oc-tool:$PATH
+
+sudo vi daemon.json : add this { "insecure-registries": ["172.30.0.0/16"] }
+sudo systemctl restart docker.service
+firewall-cmd --zone=public --add-port=8443/tcp --permanent
+firewall-cmd --zone=public --add-port=53/udp --permanent
+firewall-cmd --reload
+
+Old Version : ------
+oc cluster up —use-existing-config host-data-dir=/usr/data metrics=true image=registry.access.redhat.com/openshift3/ose version=latest
+oc cluster down
+
+OpenShift Master:
+v1.5.1+7b451fc
+Kubernetes Master:
+v1.5.2+43a9be4
+
+Use Latest Version: --------
+oc cluster up —use-existing-config host-data-dir=/usr/data metrics=true image=d83cea28acf9 version=latest
+OpenShift Master:
+unknown
+Kubernetes Master:
+v1.11.0+d4cacc0
+OpenShift Web Console:
+v3.11.0+ea42280
+
+oc login -u system:admin
+
+oc cluster up
+oc cluster down
