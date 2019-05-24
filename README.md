@@ -79,6 +79,12 @@ MYSQL:
 10. sudo yum install mysql-workbench-community
 11. sudo yum update mysql-server : if need to upgrade
 
+12. sudo systemctl stop mysqld.service : stop mysql service in case you are not using
+
+13. systemctl is-enabled mysqld
+14. systemctl disable mysqld
+15. systemctl enable mysqld
+
 Kernel Update:
 --------------
 https://www.tecmint.com/install-upgrade-kernel-version-in-centos-7/
@@ -95,3 +101,29 @@ GRUB_DEFAULT=0 : change this
 sudo grub2-mkconfig -o /boot/grub2/grub.cfg
 sudo grub2-mkconfig -o /boot/grub/grub.cfg
 restart os
+
+
+kubernetes:
+-----------
+curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64 && chmod +x minikube
+sudo cp minikube /usr/local/bin && rm minikube
+rm -rf ~/.minikube
+
+
+sudo yum install libvirt-daemon-kvm qemu-kvm
+sudo systemctl enable libvirtd.service
+sudo systemctl start libvirtd.service
+sudo systemctl status libvirtd.service
+sudo usermod -a -G libvirt $(whoami)
+newgrp libvirt
+curl -LO https://storage.googleapis.com/minikube/releases/latest/docker-machine-driver-kvm2 && sudo install docker-machine-driver-kvm2 /usr/local/bin/
+minikube start --vm-driver kvm2 or minikube config set vm-driver kvm2 & minikube start
+minikube status
+
+
+curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
+chmod +x ./kubectl
+sudo mv ./kubectl /usr/local/bin/kubectl
+kubectl version
+
+kubectl cluster-info
