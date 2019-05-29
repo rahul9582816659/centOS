@@ -16,7 +16,8 @@ NodeJS:
 ------
 1. curl -sL https://rpm.nodesource.com/setup_10.x | sudo bash -
 2. sudo yum install nodejs
-3. npm install -g @angular/cli
+3. sudo npm install -g @angular/cli
+4. sudo npm install -g npm // to update to latest version 
 
 Java:
 -----
@@ -173,3 +174,43 @@ oc login -u system:admin
 
 oc cluster up
 oc cluster down
+
+Torrent:
+-------
+Download latest epel-release rpm from
+http://download-ib01.fedoraproject.org/pub/epel/7/x86_64/ or https://download-ib01.fedoraproject.org/pub/epel/7/x86_64/Packages/q/?C=M;O=A
+
+Install epel-release rpm:
+sudo yum install qbittorrent*
+
+Virtual Box:
+------------
+https://www.itzgeek.com/how-tos/linux/centos-how-tos/install-virtualbox-4-3-on-centos-7-rhel-7.html
+
+1. yum install -y kernel-devel kernel-headers gcc make perl
+2. yum -y install wget
+3. wget https://www.virtualbox.org/download/oracle_vbox.asc
+4. rpm --import oracle_vbox.asc
+5. sudo wget http://download.virtualbox.org/virtualbox/rpm/el/virtualbox.repo -O /etc/yum.repos.d/virtualbox.repo
+6. sudo yum install -y VirtualBox-6.0
+7. systemctl start vboxdrv.service
+8. systemctl status vboxdrv.service
+
+Ubuntu :
+------
+http://ubuntuhandbook.org/index.php/2018/05/replace-left-panel-dock-launcher-ubuntu-18-04/
+https://www.youtube.com/watch?v=IEzrs1ZU4R0
+
+Gnome :
+------
+https://linoxide.com/linux-how-to/install-gnome-shell-extensions-gui-cli/
+
+1. sudo yum install git
+2. sudo yum install cmake
+3. sudo yum install coreutils
+4. sudo yum install jq
+5. make dir and clone https://github.com/GNOME/chrome-gnome-shell.git
+6. got to that dir : cd chrome-gnome-shell/
+7. mkdir build && cd build
+8. cmake -DCMAKE_INSTALL_PREFIX=/usr -DBUILD_EXTENSION=OFF ../
+9. sudo make install
