@@ -6,11 +6,16 @@ Run:
 2. sudo yum update
 3. restart after this
 
+1. sudo apt-get update
+2. sudo apt-get upgrade
+
 Sublime:
 --------
 1. sudo rpm -v --import https://download.sublimetext.com/sublimehq-rpm-pub.gpg
 2. sudo yum-config-manager --add-repo https://download.sublimetext.com/rpm/stable/x86_64/sublime-text.repo
 3. sudo yum install sublime-text
+
+1. available in software center
 
 NodeJS:
 ------
@@ -19,11 +24,26 @@ NodeJS:
 3. sudo npm install -g @angular/cli
 4. sudo npm install -g npm // to update to latest version 
 
+1. sudo apt-get install curl python-software-properties
+2. curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
+3. sudo apt-get install nodejs
+
 Java:
 -----
 1. Bydefault installed
 2. install java 8 latest from software dir : rpm will be there run that : sudo yum install jdk... 
 3. Intellija : /usr/java/1.8... : select this
+
+1. sudo apt-get update
+2. sudo apt-get install default-jre
+3. sudo apt-get install default-jdk
+4. readlink -f $(which java)
+   /usr/lib/jvm/java-11-openjdk-amd64/bin/java and hit enter ( try remove /java and hit eneter or remove /bin/java and hit eneter)
+5. paste this url in intellija
+
+Git:
+----
+1. sudo apt-get install git
 
 
 Maven:
@@ -32,11 +52,15 @@ Maven:
 2. mvn -version
 3. The Local Repository : Linux: /home/<User_Name>/.m2 : /home/rahul/.m2
 
+1. sudo apt-get maven
+
 VLC:
 ----
 1. yum install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
 2. yum install https://download1.rpmfusion.org/free/el/rpmfusion-free-release-7.noarch.rpm
 3. yum install vlc
+
+1. available in software center 
 
 Jetbrain Tool:
 -------------
@@ -63,6 +87,12 @@ to run docker using user rahul :
 2. usermod -aG docker $(whoami)
 3. su rahul
 
+// Remove all images
+docker rmi -f $(docker images -q)
+// Remove all containers
+docker stop $(docker ps -a -q)
+docker rm $(docker ps -a -q)
+
 
 MYSQL:
 ------
@@ -85,6 +115,14 @@ MYSQL:
 13. systemctl is-enabled mysqld
 14. systemctl disable mysqld
 15. systemctl enable mysqld
+
+1. sudo apt-get update
+2. sudo apt-get install mysql-server
+3. systemctl start mysql // Start the MySQL service
+4. systemctl enable mysql// Launch at reboot
+
+1. sudo dpkg -l | grep mysql
+2. sudo apt-get --purge autoremove package_name
 
 Kernel Update:
 --------------
@@ -131,6 +169,17 @@ sudo mv ./kubectl /usr/local/bin/kubectl
 kubectl version
 
 kubectl cluster-info
+
+minikube start
+
+0. uninstall microk8s and reinstall using below
+1. https://tutorials.ubuntu.com/tutorial/install-a-local-kubernetes-with-microk8s#2
+
+
+
+1. microk8s.status
+2. microk8s.stop
+3. oc cluster up
 
 Openshift:
 ----------
@@ -205,6 +254,7 @@ Gnome :
 ------
 https://linoxide.com/linux-how-to/install-gnome-shell-extensions-gui-cli/
 
+0. Install GNOME Shell integration chrome extension
 1. sudo yum install git
 2. sudo yum install cmake
 3. sudo yum install coreutils
