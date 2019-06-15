@@ -116,13 +116,19 @@ MYSQL:
 14. systemctl disable mysqld
 15. systemctl enable mysqld
 
-1. sudo apt-get update
-2. sudo apt-get install mysql-server
-3. systemctl start mysql // Start the MySQL service
-4. systemctl enable mysql// Launch at reboot
 
-1. sudo dpkg -l | grep mysql
-2. sudo apt-get --purge autoremove package_name
+Ubuntu:
+1. https://www.youtube.com/watch?v=yRDVDMHoWLA
+2. sudo apt update
+3. sudo apt install mysql-server
+4. sudo mysql
+5. ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '$Dec2017';
+6. FLUSH PRIVILEGES;
+7. exit
+8. mysql -u root -p
+9. systemctl status mysql 
+10. systemctl start mysql // Start the MySQL service
+11. systemctl enable mysql// Launch at reboot
 
 Kernel Update:
 --------------
