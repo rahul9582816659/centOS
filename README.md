@@ -41,6 +41,18 @@ Java:
    /usr/lib/jvm/java-11-openjdk-amd64/bin/java and hit enter ( try remove /java and hit eneter or remove /bin/java and hit eneter)
 5. paste this url in intellija
 
+Set JAVA_HOME UBUNTU: in home check show hidden files & open it and paste this in last
+Source : https://www.wikihow.com/Set-Up-Your-Java_Home-Path-in-Ubuntu
+
+check java : readlink -f $(which java)
+# setting JAVA_HOME
+JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
+export JAVA_HOME
+PATH=$PATH:$JAVA_HOME
+export PATH
+
+
+
 Git:
 ----
 1. sudo apt-get install git
@@ -93,6 +105,83 @@ docker rmi -f $(docker images -q)
 docker stop $(docker ps -a -q)
 docker rm $(docker ps -a -q)
 
+Remove Docker:
+--------------
+To completely uninstall Docker:
+
+Step 1
+
+dpkg -l | grep -i docker
+To identify what installed package you have:
+
+Step 2
+
+sudo apt-get purge -y docker-engine docker docker.io docker-ce  
+sudo apt-get autoremove -y --purge docker-engine docker docker.io docker-ce  
+The above commands will not remove images, containers, volumes, or user created configuration files on your host. If you wish to delete all images, containers, and volumes run the following commands:
+
+sudo rm -rf /var/lib/docker
+sudo rm /etc/apparmor.d/docker
+sudo groupdel docker
+sudo rm -rf /var/run/docker.sock
+You have removed Docker from the system completely.
+
+Finally test again : dpkg -l | grep -i docker
+
+Install:
+--------
+#Run docker install to install docker:
+sudo apt-get install docker.io -y
+
+#Add the docker group if it doesn't already exist:
+sudo groupadd docker
+
+#Add the connected user "$USER" to the docker group. Change the user name to match your preferred user if you do not want to use your current user:
+su root
+sudo gpasswd -a $USER docker
+su rahul
+
+#check version:
+docker version
+
+#enable docker:
+sudo systemctl start docker
+sudo systemctl enable docker
+
+#You can use
+docker run hello-world
+
+#disable swap temporary,
+$ sudo swapoff -a
+
+#Install Kubeadm package
+$ sudo apt-get install kubeadm -y
+
+#install the parts we need for Kubernetes
+$ sudo apt-get install -y kubelet kubectl kubernetes-cni
+
+#Kubernetes requires a Pod Network for the pods to communicate. For this guide we will use Flannel although there are several other Pod Networks availabl
+#We can now initialize Kubernetes by running the initialization command and passing --pod-network-cidr which is required for Flannel to work correctly
+$ sudo kubeadm init --pod-network-cidr=172.168.10.0/24
+
+#To start using your cluster, you need to run the following as a regular user:
+mkdir -p $HOME/.kube
+sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+sudo chown $(id -u):$(id -g) $HOME/.kube/config
+
+#check status of node
+$ kubectl get nodes
+
+
+#Once Kubernetes has been initialized we then install the Flannel Pod Network by running.
+#Let’s deploy the pod network, Pod network is the network through which our cluster nodes will communicate with each other. We will deploy Flannel as our pod network, Flannel will provide the overlay network between cluster nodes.
+
+#First we need to set /proc/sys/net/bridge/bridge-nf-call-iptables to 1 to pass bridged IPv4 traffic to iptables` chains which is required by certain CNI networks (in this case Flannel). Do this by issueing#
+sudo sysctl net.bridge.bridge-nf-call-iptables=1
+sudo kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentaion/kube-flannel.yml
+
+#We can check that the pod is up by running
+$ kubectl get pods --all-namespaces
 
 MYSQL:
 ------
@@ -177,15 +266,6 @@ kubectl version
 kubectl cluster-info
 
 minikube start
-
-0. uninstall microk8s and reinstall using below
-1. https://tutorials.ubuntu.com/tutorial/install-a-local-kubernetes-with-microk8s#2
-
-
-
-1. microk8s.status
-2. microk8s.stop
-3. oc cluster up
 
 Openshift:
 ----------
